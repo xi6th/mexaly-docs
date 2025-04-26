@@ -1,0 +1,17 @@
+# version: '3'
+
+services:
+  web:
+    image: mexaly/frontend:v1
+    build:
+      context: .
+      dockerfile: Dockerfile.dev  # We'll create a development-specific Dockerfile
+    ports:
+      - "9008:9008"
+    environment:
+      - NODE_ENV=development  # Changed to development mode
+    volumes:
+      - ./:/app  # Mount your local directory to the container
+      - /app/node_modules  # Preserve container's node_modules
+    restart: unless-stopped
+    command: npm run dev  # Run in development mode instead of production
